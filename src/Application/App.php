@@ -24,4 +24,8 @@ class App
     {
         return $this->pageRepository;
     }
+
+    public function run(): void {
+        echo 'run';
+    }
 }
