@@ -1,0 +1,19 @@
+{
+    "name": "chlp/telepage",
+    "type": "project",
+    "require": {
+        "catfan/medoo": "^2.1"
+    },
+    "license": "MIT License",
+    "autoload": {
+        "psr-4": {
+            "Chlp\\Telepage\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "chlp",
+            "email": "user.raa@gmail.com"
+        }
+    ]
+}
