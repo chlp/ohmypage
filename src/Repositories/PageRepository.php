@@ -3,26 +3,49 @@ declare(strict_types=1);
 
 namespace Chlp\Telepage\Repositories;
 
+use Chlp\Telepage\Models\Page;
+use DateTime;
 use Medoo\Medoo;
 
-class PageRepository {
+class PageRepository
+{
+    private const DB_TABLE = 'pages';
+
     /**
      * @param Medoo $db
      */
     public function __construct(
         private Medoo $db,
-    ) {
+    )
+    {
     }
 
     /**
-     * @return array|null
+     * @param int $id
+     * @return Page|null
      */
-    public function test(): ?array {
-        return $this->db->select('emp0', [
-            'badgeNo',
-            'qt_customerId'
+    public function getById(int $id): ?Page
+    {
+        $rows = $this->db->select(self::DB_TABLE, [
+            'id',
+            'created',
+            'title',
+            'content',
+            'status',
         ], [
-            'id' => 1
+            'id' => $id
         ]);
+        if ($rows === null || count($rows) !== 1) {
+            return null;
+        }
+        $row = $rows[0];
+        return new Page(
+            $row['id'],
+            DateTime::createFromFormat('Y-m-d H:i:s', $row['created']),
+            $row['title'],
+            $row['content'],
+            $row['status'],
+            [],
+        );
     }
 }

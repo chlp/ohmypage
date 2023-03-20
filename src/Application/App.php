@@ -25,7 +25,9 @@ class App
         return $this->pageRepository;
     }
 
-    public function run(): void {
+    public function run(): void
+    {
+        var_dump($this->pageRepository->getById(1));
         echo 'run';
     }
 }
