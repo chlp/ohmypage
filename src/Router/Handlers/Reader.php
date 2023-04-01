@@ -25,7 +25,7 @@ class Reader extends Handler
     public function run(): void
     {
         $pageRepository = App::getInstance()->getPageRepository();
-        $this->setHtml('<pre' . print_r($pageRepository->getById($this->pageId), true) . '</pre>');
+        $this->setHtml('<pre>' . print_r($pageRepository->getById($this->pageId), true) . '</pre>');
         parent::run();
     }
 }

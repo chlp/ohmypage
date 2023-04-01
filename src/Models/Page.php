@@ -12,7 +12,7 @@ class Page
     private const STATUS_DELETED = 3;
 
     /**
-     * @param int $id
+     * @param string $id
      * @param DateTime $created
      * @param string $title
      * @param string $content
@@ -20,7 +20,7 @@ class Page
      * @param string[] $images
      */
     public function __construct(
-        public int      $id,
+        public string   $id,
         public DateTime $created,
         public string   $title,
         public string   $content,
