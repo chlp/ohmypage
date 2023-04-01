@@ -4,7 +4,9 @@ create table pages
     created datetime    default CURRENT_TIMESTAMP not null,
     title   varchar(256)                          not null,
     content text                                  not null,
-    status  tinyint null
+    status  tinyint                               not null,
+    theme   varchar(32)                           not null,
+    lang    varchar(16)                           not null
 );
 
 create table images
