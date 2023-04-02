@@ -21,10 +21,10 @@ class PageRepository
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return Page|null
      */
-    public function getById(int $id): ?Page
+    public function getById(string $id): ?Page
     {
         $rows = $this->db->select(self::DB_TABLE, [
             'id',
@@ -32,6 +32,8 @@ class PageRepository
             'title',
             'content',
             'status',
+            'theme',
+            'lang',
         ], [
             'id' => $id
         ]);
@@ -45,6 +47,8 @@ class PageRepository
             $row['title'],
             $row['content'],
             $row['status'],
+            $row['theme'],
+            $row['lang'],
             [],
         );
     }

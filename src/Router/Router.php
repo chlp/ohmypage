@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Chlp\Telepage\Router;
 
-use Chlp\Telepage\Router\Handlers\Reader;
+use Chlp\Telepage\Router\Handlers\PageReader;
 use Exception;
 
 class Router
@@ -29,6 +29,6 @@ class Router
             $handler->setHtml('edit');
             return $handler;
         }
-        return new Reader($this->uri);
+        return new PageReader($this->uri);
     }
 }

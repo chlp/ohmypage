@@ -2,7 +2,8 @@
     "name": "chlp/telepage",
     "type": "project",
     "require": {
-        "catfan/medoo": "^2.1"
+        "catfan/medoo": "^2.1",
+        "erusev/parsedown": "^1.7"
     },
     "license": "MIT License",
     "autoload": {
