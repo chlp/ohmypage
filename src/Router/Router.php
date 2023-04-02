@@ -8,6 +8,8 @@ use Exception;
 
 class Router
 {
+    private const HOME_PATH = '/editor/';
+
     /**
      * @param string $uri
      */
@@ -15,6 +17,7 @@ class Router
         private string $uri
     )
     {
+        $this->uri = substr($this->uri, strlen(self::HOME_PATH));
     }
 
     /**
@@ -23,7 +26,6 @@ class Router
      */
     public function getHandler(): Handler
     {
-        $this->uri = trim(trim($this->uri), '/');
         if ($this->uri === 'edit') {
             $handler = new Handler();
             $handler->setHtml('edit');
