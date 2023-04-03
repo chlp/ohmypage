@@ -1,0 +1,5 @@
+ErrorDocument 401 /fallback.html
+ErrorDocument 402 /fallback.html
+ErrorDocument 403 /fallback.html
+ErrorDocument 404 /fallback.html
+ErrorDocument 500 /fallback.html
