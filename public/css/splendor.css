@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Merriweather:300italic,300);
+
 @media print {
     *,
     *:before,
@@ -141,11 +143,10 @@ iframe,
 video,
 svg,
 select,
+video,
 textarea {
     max-width: 100%;
 }
-
-@import url(http://fonts.googleapis.com/css?family=Merriweather:300italic,300);
 
 html {
     font-size: 18px;
@@ -162,7 +163,7 @@ body {
 /* === A bit of a gross hack so we can have bleeding divs/blockquotes. */
 
 p,
-*:not(div):not(img):not(body):not(html):not(li):not(blockquote):not(p) {
+*:not(div):not(img):not(video):not(body):not(html):not(li):not(blockquote):not(p) {
     margin: 1rem auto 1rem;
     max-width: 36rem;
     padding: .25rem;
