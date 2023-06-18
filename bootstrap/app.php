@@ -7,7 +7,13 @@ require_once __DIR__ . '/config.php';
 use Chlp\Telepage\Application\App;
 use Medoo\Medoo;
 
-$database = new Medoo(DB_CONFIG);
+try {
+    $database = new Medoo(DB_CONFIG);
+} catch (Exception $ex) {
+    echo '💾';
+    error_log((string)$ex);
+    exit;
+}
 
 $app = new App($database);
 
