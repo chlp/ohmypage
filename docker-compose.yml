@@ -1,0 +1,54 @@
+version: "2"
+
+services:
+  data:
+    image: busybox
+    volumes:
+      - ./app:/var/www/html
+      - /var/lib/mysql
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    links:
+      - fpm
+    volumes_from:
+      - data
+    ports:
+      - "80:80"
+      - "81:81"
+
+  mysql:
+    image: mysql:8.1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: my_user_name
+      MYSQL_PASSWORD: my_password
+      MYSQL_DATABASE: my_database
+    volumes_from:
+      - data
+    ports:
+      - "3306:3306"
+
+  fpm:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes_from:
+      - data
+    links:
+      - mysql
+    expose:
+      - 9000
+    command: php-fpm
+
+  composer:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    entrypoint: composer
+    volumes_from:
+      - data
+    links:
+      - mysql
