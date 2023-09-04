@@ -20,11 +20,11 @@ services:
     volumes_from:
       - data
     ports:
-      - "80:80"
-      - "81:81"
-      - "81:82"
-      - "81:83"
-      - "81:84"
+      - "8080:8080"
+      - "8181:8081"
+      - "8082:8082"
+      - "8083:8083"
+      - "8084:8084"
 
   mysql:
     image: mysql:8.1
@@ -46,6 +46,8 @@ services:
       - data
     links:
       - mysql
+    expose:
+      - 9000
     command: php-fpm
 
   composer:
