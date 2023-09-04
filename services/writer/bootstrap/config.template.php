@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 const DB_CONFIG = [
     'type' => 'mysql',
-    'host' => 'host',
-    'database' => 'public',
-    'username' => 'username',
-    'password' => 'password'
+    'host' => 'mysql',
+    'database' => 'writer_db',
+    'username' => 'writer_app_user',
+    'password' => 'writer_app_pass'
 ];

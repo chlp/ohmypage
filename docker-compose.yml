@@ -21,22 +21,26 @@ services:
       - data
     ports:
       - "8080:8080"
-      - "8181:8081"
+      - "8081:8081"
       - "8082:8082"
       - "8083:8083"
       - "8084:8084"
+    networks:
+      - page_app_network
 
   mysql:
     image: mysql:8.1
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: my_user_name
-      MYSQL_PASSWORD: my_password
-      MYSQL_DATABASE: my_database
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_USER: writer_app_user
+      MYSQL_PASSWORD: writer_app_pass
+      MYSQL_DATABASE: writer_db
     volumes_from:
       - data
     ports:
       - "3306:3306"
+    networks:
+      - page_app_network
 
   fpm:
     build:
@@ -49,6 +53,8 @@ services:
     expose:
       - 9000
     command: php-fpm
+    networks:
+      - page_app_network
 
   composer:
     build:
@@ -59,3 +65,7 @@ services:
       - data
     links:
       - mysql
+
+networks:
+  page_app_network:
+    driver: bridge
