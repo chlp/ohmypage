@@ -1,0 +1,71 @@
+version: "2"
+
+services:
+  data:
+    image: busybox
+    volumes:
+      - ./services/writer:/var/www/writer
+      - ./services/reader:/var/www/reader
+      - ./services/images:/var/www/images
+      - ./services/videos:/var/www/videos
+      - ./services/files:/var/www/files
+      - /var/lib/mysql
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    links:
+      - fpm
+    volumes_from:
+      - data
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+      - "8082:8082"
+      - "8083:8083"
+      - "8084:8084"
+    networks:
+      - page_app_network
+
+  mysql:
+    image: mysql:8.1
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_USER: writer_app_user
+      MYSQL_PASSWORD: writer_app_pass
+      MYSQL_DATABASE: writer_db
+    volumes_from:
+      - data
+    ports:
+      - "3306:3306"
+    networks:
+      - page_app_network
+
+  fpm:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes_from:
+      - data
+    links:
+      - mysql
+    expose:
+      - 9000
+    command: php-fpm
+    networks:
+      - page_app_network
+
+  composer:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    entrypoint: composer
+    volumes_from:
+      - data
+    links:
+      - mysql
+
+networks:
+  page_app_network:
+    driver: bridge

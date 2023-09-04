@@ -1,5 +1,2 @@
 .idea
-bootstrap/config.php
-public/*
-!public/css
-!public/editor
+writer/bootstrap/config.php
