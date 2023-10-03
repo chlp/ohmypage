@@ -19,12 +19,14 @@ services:
       - fpm
     volumes_from:
       - data
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
     ports:
-      - "8080:8080"
-      - "8081:8081"
-      - "8082:8082"
-      - "8083:8083"
-      - "8084:8084"
+      - "8080:8080" # writer
+      - "8081:8081" # reader
+      - "8082:8082" # images
+      - "8083:8083" # videos
+      - "8084:8084" # files
     networks:
       - page_app_network
 
