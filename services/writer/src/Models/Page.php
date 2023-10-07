@@ -65,8 +65,8 @@ class Page
 <head>
     <meta charset="UTF-8">
     <title>' . $this->title . '</title>
-    <link rel="icon" href="favicon.svg">
-    <link rel="stylesheet" href="css/' . $this->theme . '.css">
+    <link rel="icon" href="/favicon.svg">
+    <link rel="stylesheet" href="/template/' . $this->theme . '.css">
 </head>
 <body>
 
