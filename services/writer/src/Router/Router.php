@@ -8,7 +8,7 @@ use Exception;
 
 class Router
 {
-    private const HOME_PATH = '/editor/';
+    private array $path;
 
     /**
      * @param string $uri
@@ -17,7 +17,11 @@ class Router
         private string $uri
     )
     {
-        $this->uri = substr($this->uri, strlen(self::HOME_PATH));
+        $this->uri = trim($this->uri, '/');
+        $this->path = explode('/', $this->uri);
+        if (count($this->path) === 0) {
+            $this->path = [''];
+        }
     }
 
     /**
@@ -26,11 +30,11 @@ class Router
      */
     public function getHandler(): Handler
     {
-        if ($this->uri === 'edit') {
+        if ($this->path[0] === 'edit') {
             $handler = new Handler();
             $handler->setHtml('edit');
             return $handler;
         }
-        return new PageReader($this->uri);
+        return new PageReader($this->path[0]);
     }
 }
