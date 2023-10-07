@@ -46,10 +46,31 @@ class Page
 
     private function saveToFile(string $html): void
     {
-        // todo: read json near html and write only if another version (md5 of file or something else)
         // todo: check if there is no any pages with the same latin name today
         // todo: put subdirs with year/month/day with ohMyPageChars
-        file_put_contents(Helper::getVarDirPath() . '/generated_pages/' . $this->getLatinName() . '.html', $html);
+
+        $pageHtmlPath = Helper::getVarDirPath() . '/generated_pages/' . $this->getLatinName() . '.html';
+        $pageJsonPath = Helper::getVarDirPath() . '/generated_pages/' . $this->getLatinName() . '.json';
+
+        $storedMd5 = '';
+        if (file_exists($pageJsonPath)) {
+            $storedDataFile = file_get_contents($pageJsonPath);
+            if ($storedDataFile !== false) {
+                $storedData = json_decode($storedDataFile, true);
+                if (is_array($storedData) && key_exists('md5', $storedData) && is_string($storedData['md5'])) {
+                    $storedMd5 = (string)$storedData['md5'];
+                }
+            }
+        }
+
+        $newMd5 = md5($html);
+        if ($newMd5 !== $storedMd5) {
+            file_put_contents($pageHtmlPath, $html);
+            $data = json_encode([
+                'md5' => md5($html),
+            ]);
+            file_put_contents($pageJsonPath, $data);
+        }
     }
 
     private function getLatinName(): string
