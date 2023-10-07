@@ -56,4 +56,10 @@ class Helper
             return $i;
         }
     }
+
+    public static function log(string $message): void
+    {
+        // todo: write it somewhere
+        echo 'Error: ' . $message;
+    }
 }

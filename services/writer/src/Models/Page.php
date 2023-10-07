@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Chlp\Telepage\Models;
 
 use Chlp\Telepage\Application\Helper;
+use Exception;
 use DateTime;
 use Parsedown;
 
@@ -39,18 +40,18 @@ class Page
     public function makeHtml(): string
     {
         $mdParser = new Parsedown();
-        $html = $this->getHtmlHeader() . $mdParser->text($this->content) . $this->getHtmlFooter();
-        $this->saveToFile($html);
-        return $html;
+        $readerHtml = $this->getHtmlHeader() . $mdParser->text($this->content) . $this->getHtmlFooter();
+        $writerHtml = $this->getHtmlHeader() . $this->getReaderLink() . $mdParser->text($this->content) . $this->getHtmlFooter();
+        $this->saveToFile($readerHtml);
+        return $writerHtml;
     }
 
     private function saveToFile(string $html): void
     {
         // todo: check if there is no any pages with the same latin name today
-        // todo: put subdirs with year/month/day with ohMyPageChars
 
-        $pageHtmlPath = Helper::getVarDirPath() . '/generated_pages/' . $this->getLatinName() . '.html';
-        $pageJsonPath = Helper::getVarDirPath() . '/generated_pages/' . $this->getLatinName() . '.json';
+        $pageHtmlPath = $this->getHtmlFilePath();
+        $pageJsonPath = $this->getJsonFilePath();
 
         $storedMd5 = '';
         if (file_exists($pageJsonPath)) {
@@ -65,6 +66,9 @@ class Page
 
         $newMd5 = md5($html);
         if ($newMd5 !== $storedMd5) {
+            if (!is_dir(dirname($pageHtmlPath))) {
+                mkdir(dirname($pageHtmlPath), 0777, true);
+            }
             file_put_contents($pageHtmlPath, $html);
             $data = json_encode([
                 'md5' => md5($html),
@@ -77,6 +81,50 @@ class Page
     {
         // todo: remove all non numbers and chars
         return (string)preg_replace('/\s+/', '_', $this->title);
+    }
+
+    private function getPagePath(): string
+    {
+        try {
+            $year = Helper::intToOhMyChar((int)$this->created->format('y')); // year
+        } catch (Exception $e) {
+            Helper::log('Page::getVarDirBasePath() year: ' . $e->getMessage());
+            $year = '_';
+        }
+        try {
+            $month = Helper::intToOhMyChar((int)$this->created->format('n')); // month
+        } catch (Exception $e) {
+            Helper::log('Page::getVarDirBasePath() month: ' . $e->getMessage());
+            $month = '_';
+        }
+        try {
+            $day = Helper::intToOhMyChar((int)$this->created->format('j')); // day
+        } catch (Exception $e) {
+            Helper::log('Page::getVarDirBasePath() day: ' . $e->getMessage());
+            $day = '_';
+        }
+        $datePath = "$year/$month/$day";
+        return "$datePath/" . $this->getLatinName();
+    }
+
+    private function getHtmlReaderPath(): string
+    {
+        return $this->getPagePath() . '.html';
+    }
+
+    private function getVarDirBasePath(): string
+    {
+        return Helper::getVarDirPath() . '/generated_pages/' . $this->getPagePath();
+    }
+
+    private function getHtmlFilePath(): string
+    {
+        return $this->getVarDirBasePath() . '.html';
+    }
+
+    private function getJsonFilePath(): string
+    {
+        return $this->getVarDirBasePath() . '.json';
     }
 
     private function getHtmlHeader(): string
@@ -93,6 +141,12 @@ class Page
 
 <h1>' . $this->title . '</h1>
 ';
+    }
+
+    private function getReaderLink(): string
+    {
+        // todo: put reader domain
+        return '<a href="http://localhost:8081/' . $this->getHtmlReaderPath() . '">http://localhost:8081/' . $this->getHtmlReaderPath() . '</a>';
     }
 
     private function getHtmlFooter(): string
