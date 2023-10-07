@@ -40,9 +40,8 @@ class Page
     public function makeHtml(): string
     {
         $mdParser = new Parsedown();
-        $content = $mdParser->text($this->content);
-        $readerHtml = $this->getHtmlHeader() . $content . $this->getHtmlFooter();
-        $writerHtml = $this->getHtmlHeader() . $this->getReaderLink() . $content . $this->getHtmlFooter();
+        $readerHtml = $this->getHtmlReaderHeader() . $mdParser->text($this->content) . $this->getHtmlReaderFooter();
+        $writerHtml = $this->getHtmlWriterHeader() . htmlspecialchars($this->content) . $this->getHtmlWriterFooter();
         $this->saveToFile($readerHtml);
         return $writerHtml;
     }
@@ -128,7 +127,7 @@ class Page
         return $this->getVarDirBasePath() . '.json';
     }
 
-    private function getHtmlHeader(): string
+    private function getHtmlReaderHeader(): string
     {
         return '<!doctype html>
 <html lang="' . $this->lang . '">
@@ -144,15 +143,43 @@ class Page
 ';
     }
 
-    private function getReaderLink(): string
-    {
-        // todo: put reader domain
-        return '<a href="http://localhost:8081/' . $this->getHtmlReaderPath() . '">http://localhost:8081/' . $this->getHtmlReaderPath() . '</a>';
-    }
-
-    private function getHtmlFooter(): string
+    private function getHtmlReaderFooter(): string
     {
         return '
+</body>
+</html>';
+    }
+
+    private function getHtmlWriterHeader(): string
+    {
+        // todo: hljs can not update content :(
+        return '<!doctype html>
+<html lang="' . $this->lang . '">
+<head>
+    <meta charset="UTF-8">
+    <title>' . $this->title . '</title>
+    <link rel="icon" href="/favicon.svg">
+    
+    <link rel="stylesheet" href="/highlightjs/default.min.css">
+    <script src="/highlightjs/highlight.min.js"></script>
+    <script src="/highlightjs/markdown.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+
+<h1>' . $this->title . '</h1>
+<a href="http://localhost:8081/' . $this->getHtmlReaderPath() . '">http://localhost:8081/' . $this->getHtmlReaderPath() . '</a>
+<br>
+<pre style="min-width: 800px; min-height: 500px; width: 60vw; height: 70vh; margin: 1em;">
+    <code class="language-md" style="border: 1px solid black;" contenteditable="true">
+';
+    }
+
+    private function getHtmlWriterFooter(): string
+    {
+        return '
+    </code>
+</pre>
 </body>
 </html>';
     }
