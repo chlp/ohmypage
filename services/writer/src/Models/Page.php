@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Chlp\Telepage\Models;
 
+use Chlp\Telepage\Application\Helper;
 use DateTime;
 use Parsedown;
 
@@ -38,7 +39,23 @@ class Page
     public function makeHtml(): string
     {
         $mdParser = new Parsedown();
-        return $this->getHtmlHeader() . $mdParser->text($this->content) . $this->getHtmlFooter();
+        $html = $this->getHtmlHeader() . $mdParser->text($this->content) . $this->getHtmlFooter();
+        $this->saveToFile($html);
+        return $html;
+    }
+
+    private function saveToFile(string $html): void
+    {
+        // todo: read json near html and write only if another version (md5 of file or something else)
+        // todo: check if there is no any pages with the same latin name today
+        // todo: put subdirs with year/month/day with ohMyPageChars
+        file_put_contents(Helper::getVarDirPath() . '/generated_pages/' . $this->getLatinName() . '.html', $html);
+    }
+
+    private function getLatinName(): string
+    {
+        // todo: remove all non numbers and chars
+        return (string)preg_replace('/\s+/', '_', $this->title);
     }
 
     private function getHtmlHeader(): string

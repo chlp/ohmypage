@@ -11,9 +11,7 @@ use Medoo\Medoo;
 class App
 {
     private static App $instance;
-
     private PageRepository $pageRepository;
-
 
     /**
      * @param Medoo $database

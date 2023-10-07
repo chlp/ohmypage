@@ -12,6 +12,11 @@ class Helper
         return preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/', $uuid) === 1;
     }
 
+    public static function getVarDirPath(): string
+    {
+        return __DIR__ . '/../../var';
+    }
+
     const A_CHAR_CODE = 97;
     const MAX_OHMYCHAR_INT = 35;
 
