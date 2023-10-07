@@ -40,8 +40,9 @@ class Page
     public function makeHtml(): string
     {
         $mdParser = new Parsedown();
-        $readerHtml = $this->getHtmlHeader() . $mdParser->text($this->content) . $this->getHtmlFooter();
-        $writerHtml = $this->getHtmlHeader() . $this->getReaderLink() . $mdParser->text($this->content) . $this->getHtmlFooter();
+        $content = $mdParser->text($this->content);
+        $readerHtml = $this->getHtmlHeader() . $content . $this->getHtmlFooter();
+        $writerHtml = $this->getHtmlHeader() . $this->getReaderLink() . $content . $this->getHtmlFooter();
         $this->saveToFile($readerHtml);
         return $writerHtml;
     }
