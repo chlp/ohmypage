@@ -18,7 +18,7 @@ class Router
         private string $uri
     )
     {
-        $this->uri = strtok(trim($this->uri, '/'), '?');
+        $this->uri = strtok(trim($this->uri, '/'), '?') ?: '';
         $this->path = explode('/', $this->uri);
         if (count($this->path) === 0) {
             $this->path = [''];
