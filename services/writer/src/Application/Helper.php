@@ -57,7 +57,7 @@ class Helper
         }
     }
 
-    const MAX_INPUT_MESSAGE_FOR_LOG = 100;
+    const MAX_INPUT_MESSAGE_FOR_LOG = 1024;
 
     public static function log(string $message): void
     {
