@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Chlp\Telepage\Router;
 
+use Chlp\Telepage\Application\Helper;
 use Chlp\Telepage\Router\Handlers\PageReader;
 use Exception;
 
@@ -17,7 +18,7 @@ class Router
         private string $uri
     )
     {
-        $this->uri = trim($this->uri, '/');
+        $this->uri = strtok(trim($this->uri, '/'), '?');
         $this->path = explode('/', $this->uri);
         if (count($this->path) === 0) {
             $this->path = [''];
@@ -30,11 +31,18 @@ class Router
      */
     public function getHandler(): Handler
     {
-        if ($this->path[0] === 'edit') {
-            $handler = new Handler();
-            $handler->setHtml('edit');
-            return $handler;
+        switch ($this->path[0]) {
+            case 'edit':
+                $handler = new Handler();
+                $handler->setHtml('edit');
+                return $handler;
+            case 'telegram_webhook':
+                $handler = new Handler();
+                $handler->setHtml('telegram');
+                Helper::log("telegram");
+                return $handler;
+            default:
+                return new PageReader($this->path[0]);
         }
-        return new PageReader($this->path[0]);
     }
 }

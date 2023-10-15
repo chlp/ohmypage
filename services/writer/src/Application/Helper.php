@@ -57,9 +57,14 @@ class Helper
         }
     }
 
+    const MAX_INPUT_MESSAGE_FOR_LOG = 100;
+
     public static function log(string $message): void
     {
-        // todo: write it somewhere
-        echo 'Error: ' . $message;
+        $input = substr(file_get_contents('php://input'), 0, self::MAX_INPUT_MESSAGE_FOR_LOG);
+        file_put_contents(self::getVarDirPath() . '/logs/' . date('Y-m-d') . '.txt',
+            date('Y-m-d H:i:s') . " {$_SERVER['REQUEST_METHOD']} {$_SERVER['REQUEST_URI']}\r\n" .
+            ($input ? "input: {$input}\r\n" : '') .
+            $message . "\r\n\r\n", FILE_APPEND);
     }
 }
