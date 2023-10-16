@@ -5,6 +5,7 @@ namespace Chlp\Telepage\Router;
 
 use Chlp\Telepage\Application\Helper;
 use Chlp\Telepage\Router\Handlers\PageReader;
+use Chlp\Telepage\Router\Handlers\TelegramWebHook;
 use Exception;
 
 class Router
@@ -37,10 +38,7 @@ class Router
                 $handler->setHtml('edit');
                 return $handler;
             case 'telegram_webhook':
-                $handler = new Handler();
-                $handler->setHtml('telegram');
-                Helper::log("telegram");
-                return $handler;
+                return new TelegramWebHook();
             default:
                 return new PageReader($this->path[0]);
         }

@@ -15,3 +15,11 @@ create table images
     page     int          not null,
     filename varchar(256) not null
 );
+
+CREATE TABLE users
+(
+    uuid       VARCHAR(36) DEFAULT (UUID()) PRIMARY KEY,
+    name       VARCHAR(64),
+    telegramId int unsigned
+);
+CREATE INDEX telegramId ON users (telegramId);

@@ -32,4 +32,18 @@ class Handler
     {
         header('Cache-Control: max-age=86400');
     }
+
+    protected function getInput(): string
+    {
+        return file_get_contents('php://input') ?: '';
+    }
+
+    protected function getJson(): array
+    {
+        $jsonInput = json_decode($this->getInput(), true);
+        if (is_array($jsonInput)) {
+            return $jsonInput;
+        }
+        return [];
+    }
 }
