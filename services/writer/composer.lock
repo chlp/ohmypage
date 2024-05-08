@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f83eb5ad0d9ec017666bd5c7e113354e",
+    "content-hash": "55a12f46eb335ddec2f5b2cd466e0e7f",
     "packages": [
         {
             "name": "catfan/medoo",
-            "version": "v2.1.8",
+            "version": "v2.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/catfan/Medoo.git",
-                "reference": "b49a620cf1ad0d2e90ebd9f85b82aa11271df5f4"
+                "reference": "d1ff4e0e873a3e032e3d8804031dd6be4e013b22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/catfan/Medoo/zipball/b49a620cf1ad0d2e90ebd9f85b82aa11271df5f4",
-                "reference": "b49a620cf1ad0d2e90ebd9f85b82aa11271df5f4",
+                "url": "https://api.github.com/repos/catfan/Medoo/zipball/d1ff4e0e873a3e032e3d8804031dd6be4e013b22",
+                "reference": "d1ff4e0e873a3e032e3d8804031dd6be4e013b22",
                 "shasum": ""
             },
             "require": {
@@ -80,7 +80,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-01-20T09:30:24+00:00"
+            "time": "2024-02-03T11:28:59+00:00"
         },
         {
             "name": "erusev/parsedown",

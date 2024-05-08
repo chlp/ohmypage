@@ -9,7 +9,7 @@ services:
       - ./services/images:/var/www/images
       - ./services/videos:/var/www/videos
       - ./services/files:/var/www/files
-      - /var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
 
   nginx:
     build:
@@ -22,16 +22,17 @@ services:
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
     ports:
-      - "8080:8080" # writer
-      - "8081:8081" # reader
-      - "8082:8082" # images
-      - "8083:8083" # videos
-      - "8084:8084" # files
+      - "8130:8130" # writer
+      - "8131:8131" # reader
+      - "8132:8132" # images
+      - "8133:8133" # videos
+      - "8134:8134" # files
     networks:
       - page_app_network
 
   mysql:
-    image: mysql:8.1
+    image: mysql:8
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root_pass
       MYSQL_USER: writer_app_user
@@ -40,7 +41,7 @@ services:
     volumes_from:
       - data
     ports:
-      - "3306:3306"
+      - "8129:3306"
     networks:
       - page_app_network
 
@@ -48,6 +49,7 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
+    restart: always
     volumes_from:
       - data
     links:
