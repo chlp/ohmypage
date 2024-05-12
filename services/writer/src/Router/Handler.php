@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Chlp\Telepage\Router;
+namespace Chlp\OhMyPage\Router;
 
 use Exception;
 

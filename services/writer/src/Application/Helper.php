@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Chlp\Telepage\Application;
+namespace Chlp\OhMyPage\Application;
 
 use Exception;
 

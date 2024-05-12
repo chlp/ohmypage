@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Chlp\Telepage\Router\Handlers;
+namespace Chlp\OhMyPage\Router\Handlers;
 
-use Chlp\Telepage\Application\App;
-use Chlp\Telepage\Application\Helper;
-use Chlp\Telepage\Router\Handler;
+use Chlp\OhMyPage\Application\App;
+use Chlp\OhMyPage\Application\Helper;
+use Chlp\OhMyPage\Router\Handler;
 use Exception;
 
 class PageReader extends Handler

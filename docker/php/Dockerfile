@@ -7,16 +7,17 @@ RUN apk update && apk add \
  oniguruma-dev \
  libxml2-dev \
  zip \
- unzip
-
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+ unzip \
+ php82-openssl \
+ openssl openssl-dev
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
 RUN apk add --update linux-headers
-RUN pecl install xdebug-3.2.2
-RUN docker-php-ext-enable xdebug
+RUN pecl install openssh-devel mongodb xdebug-3.2.2
+RUN docker-php-ext-install mbstring exif pcntl bcmath gd
+RUN docker-php-ext-enable mongodb xdebug
 RUN apk del -f .build-deps
 
 RUN echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini \

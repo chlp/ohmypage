@@ -1,11 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Chlp\Telepage\Router;
+namespace Chlp\OhMyPage\Router;
 
-use Chlp\Telepage\Application\Helper;
-use Chlp\Telepage\Router\Handlers\PageReader;
-use Chlp\Telepage\Router\Handlers\TelegramWebHook;
+use Chlp\OhMyPage\Router\Handlers\PageReader;
+use Chlp\OhMyPage\Router\Handlers\TelegramWebHook;
 use Exception;
 
 class Router

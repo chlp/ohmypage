@@ -1,12 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Chlp\Telepage\Router\Handlers;
+namespace Chlp\OhMyPage\Router\Handlers;
 
-use Chlp\Telepage\Application\App;
-use Chlp\Telepage\Application\Helper;
-use Chlp\Telepage\Router\Handler;
-use Exception;
+use Chlp\OhMyPage\Application\Helper;
+use Chlp\OhMyPage\Router\Handler;
 
 class TelegramWebHook extends Handler
 {

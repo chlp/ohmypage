@@ -2,13 +2,13 @@
     "name": "chlp/ohmypage",
     "type": "project",
     "require": {
-        "catfan/medoo": "^2.1",
-        "erusev/parsedown": "^1.7"
+        "erusev/parsedown": "^1.7",
+        "mongodb/mongodb": "^1.18"
     },
     "license": "MIT License",
     "autoload": {
         "psr-4": {
-            "Chlp\\Telepage\\": "src/"
+            "Chlp\\OhMyPage\\": "src/"
         }
     },
     "authors": [

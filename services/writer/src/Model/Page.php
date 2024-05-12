@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Chlp\Telepage\Models;
+namespace Chlp\OhMyPage\Model;
 
-use Chlp\Telepage\Application\Helper;
+use Chlp\OhMyPage\Application\Helper;
 use Exception;
 use DateTime;
 use Parsedown;

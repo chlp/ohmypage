@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use Chlp\Telepage\Application\App;
+use Chlp\OhMyPage\Application\App;
 
 /** @var App $app */
 $app = require __DIR__ . '/../bootstrap/app.php';

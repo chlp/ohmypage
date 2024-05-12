@@ -1,23 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Chlp\Telepage\Application;
+namespace Chlp\OhMyPage\Application;
 
-use Chlp\Telepage\Repositories\PageRepository;
-use Chlp\Telepage\Router\Router;
+use Chlp\OhMyPage\Repository\PageRepository;
+use Chlp\OhMyPage\Router\Router;
 use Exception;
-use Medoo\Medoo;
+use MongoDB\Database;
 
 class App
 {
     private static App $instance;
     private PageRepository $pageRepository;
 
-    /**
-     * @param Medoo $database
-     */
     public function __construct(
-        private Medoo $database,
+        private Database $database,
     )
     {
         $this->pageRepository = new PageRepository($this->database);

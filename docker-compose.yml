@@ -9,7 +9,6 @@ services:
       - ./services/images:/var/www/images
       - ./services/videos:/var/www/videos
       - ./services/files:/var/www/files
-      - ./data/mysql:/var/lib/mysql
 
   nginx:
     build:
@@ -30,21 +29,6 @@ services:
     networks:
       - page_app_network
 
-  mysql:
-    image: mysql:8
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root_pass
-      MYSQL_USER: writer_app_user
-      MYSQL_PASSWORD: writer_app_pass
-      MYSQL_DATABASE: writer_db
-    volumes_from:
-      - data
-    ports:
-      - "8129:3306"
-    networks:
-      - page_app_network
-
   fpm:
     build:
       context: .
@@ -52,8 +36,6 @@ services:
     restart: always
     volumes_from:
       - data
-    links:
-      - mysql
     expose:
       - 9000
     command: php-fpm
@@ -67,8 +49,6 @@ services:
     entrypoint: composer
     volumes_from:
       - data
-    links:
-      - mysql
 
 networks:
   page_app_network:
