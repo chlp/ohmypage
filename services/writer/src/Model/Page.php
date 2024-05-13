@@ -25,14 +25,14 @@ class Page
      * @param string[] $images
      */
     public function __construct(
-        public string   $id,
+        public string $id,
         public DateTime $created,
-        public string   $title,
-        public string   $content,
-        public int      $status,
-        public string   $theme,
-        public string   $lang,
-        public array    $images,
+        public string $title,
+        public string $content,
+        public int $status,
+        public string $theme,
+        public string $lang,
+        public array $images,
     )
     {
     }
