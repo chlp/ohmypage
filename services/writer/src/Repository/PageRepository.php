@@ -33,23 +33,26 @@ class PageRepository
         }
         return new Page(
             $row['id'],
-            DateTime::createFromFormat('Y-m-d H:i:s', $row['created']),
+            DateTime::createFromFormat('Y-m-d H:i:s', $row['created'] ?? date('Y-m-d H:i:s')),
             $row['title'],
             $row['content'],
-            $row['status'],
-            $row['theme'],
+            $row['status'] ?? Page::STATUS_PRIVATE,
+            $row['theme'] ?? Page::THEME_AIR,
             [],
         );
     }
 
     public function save(Page $page): void
     {
-        $result = $this->db->selectCollection(self::PAGE_COLLECTION)->updateOne(
+        $this->db->selectCollection(self::PAGE_COLLECTION)->updateOne(
             ['id' => $page->id],
             [
                 '$set' => [
+                    'created' => $page->created->format('Y-m-d H:i:s'),
                     'title' => $page->title,
                     'content' => $page->content,
+                    'status' => $page->status,
+                    'theme' => $page->theme,
                 ]
             ],
             ['upsert' => true]

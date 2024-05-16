@@ -167,14 +167,12 @@ class Page
 <form method="post" action="/save/' . $this->id . '">
 Title: <input type="text" name="title" value="' . $this->title . '">
 <br>
-<textarea name="content" style="min-width: 800px; min-height: 500px; width: 60vw; height: 70vh; margin: 1em;">
-';
+<textarea name="content" style="min-width: 800px; min-height: 500px; width: 60vw; height: 70vh; margin: 1em;">';
     }
 
     private function getHtmlWriterFooter(): string
     {
-        return '
-</textarea>
+        return '</textarea>
 <br>
 <input type="submit" value="save">
 </form>
