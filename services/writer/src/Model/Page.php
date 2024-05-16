@@ -179,6 +179,8 @@ Title: <input type="text" name="title" value="' . $this->title . '">
 <br>
 <a href="http://localhost:8131/' . $this->getHtmlReaderPath() . '">http://localhost:8131/' . $this->getHtmlReaderPath() . '</a>
 <br>
+<br>
+<a href="/">New page</a>
 </body>
 </html>';
     }
