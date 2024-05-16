@@ -137,7 +137,7 @@ class Page
 <head>
     <meta charset="UTF-8">
     <title>' . $this->title . '</title>
-    <link rel="icon" href="/favicon.svg">
+    <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="/template/' . $this->theme . '.css">
 </head>
 <body>
@@ -160,7 +160,7 @@ class Page
 <head>
     <meta charset="UTF-8">
     <title>' . $this->title . '</title>
-    <link rel="icon" href="/favicon.svg">
+    <link rel="icon" href="/favicon.ico">
 </head>
 <body>
 
