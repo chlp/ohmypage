@@ -14,6 +14,11 @@ class Page
     public const STATUS_PRIVATE = 2;
     public const STATUS_DELETED = 3;
 
+    public const THEME_AIR = 'air';
+    public const THEME_MODEST = 'modest';
+    public const THEME_RETRO = 'retro';
+    public const THEME_SPLENDOR = 'splendor';
+
     /**
      * @param string $id
      * @param DateTime $created
@@ -21,7 +26,6 @@ class Page
      * @param string $content
      * @param int $status
      * @param string $theme
-     * @param string $lang
      * @param string[] $images
      */
     public function __construct(
@@ -31,7 +35,6 @@ class Page
         public string $content,
         public int $status,
         public string $theme,
-        public string $lang,
         public array $images,
     )
     {
@@ -130,7 +133,7 @@ class Page
     private function getHtmlReaderHeader(): string
     {
         return '<!doctype html>
-<html lang="' . $this->lang . '">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>' . $this->title . '</title>
@@ -153,7 +156,7 @@ class Page
     private function getHtmlWriterHeader(): string
     {
         return '<!doctype html>
-<html lang="' . $this->lang . '">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>' . $this->title . '</title>

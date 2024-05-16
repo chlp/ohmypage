@@ -38,7 +38,6 @@ class PageRepository
             $row['content'],
             $row['status'],
             $row['theme'],
-            $row['lang'],
             [],
         );
     }

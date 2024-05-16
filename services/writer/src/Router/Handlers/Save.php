@@ -36,8 +36,7 @@ class Save extends Handler
                 $_POST['title'] ?? 'no-title',
                 $_POST['content'] ?? 'no-content',
                 Page::STATUS_PRIVATE,
-                'air',
-                'en',
+                Page::THEME_AIR,
                 [],
             );
         }
