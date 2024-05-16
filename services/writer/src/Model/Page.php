@@ -10,9 +10,9 @@ use Parsedown;
 
 class Page
 {
-    private const STATUS_PUBLIC = 1;
-    private const STATUS_PRIVATE = 2;
-    private const STATUS_DELETED = 3;
+    public const STATUS_PUBLIC = 1;
+    public const STATUS_PRIVATE = 2;
+    public const STATUS_DELETED = 3;
 
     /**
      * @param string $id
@@ -152,34 +152,32 @@ class Page
 
     private function getHtmlWriterHeader(): string
     {
-        // todo: hljs can not update content :(
         return '<!doctype html>
 <html lang="' . $this->lang . '">
 <head>
     <meta charset="UTF-8">
     <title>' . $this->title . '</title>
     <link rel="icon" href="/favicon.svg">
-    
-    <link rel="stylesheet" href="/highlightjs/default.min.css">
-    <script src="/highlightjs/highlight.min.js"></script>
-    <script src="/highlightjs/markdown.min.js"></script>
-    <script>hljs.highlightAll();</script>
 </head>
 <body>
 
-<h1>' . $this->title . '</h1>
-<a href="http://localhost:8131/' . $this->getHtmlReaderPath() . '">http://localhost:8131/' . $this->getHtmlReaderPath() . '</a>
+<form method="post" action="/save/' . $this->id . '">
+Title: <input type="text" name="title" value="' . $this->title . '">
 <br>
-<pre style="min-width: 800px; min-height: 500px; width: 60vw; height: 70vh; margin: 1em;">
-    <code class="language-md" style="border: 1px solid black;" contenteditable="true">
+<textarea name="content" style="min-width: 800px; min-height: 500px; width: 60vw; height: 70vh; margin: 1em;">
 ';
     }
 
     private function getHtmlWriterFooter(): string
     {
         return '
-    </code>
-</pre>
+</textarea>
+<br>
+<input type="submit" value="save">
+</form>
+<br>
+<a href="http://localhost:8131/' . $this->getHtmlReaderPath() . '">http://localhost:8131/' . $this->getHtmlReaderPath() . '</a>
+<br>
 </body>
 </html>';
     }

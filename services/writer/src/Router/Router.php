@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace Chlp\OhMyPage\Router;
 
-use Chlp\OhMyPage\Router\Handlers\PageReader;
-use Chlp\OhMyPage\Router\Handlers\TelegramWebHook;
+use Chlp\OhMyPage\Application\Helper;
+use Chlp\OhMyPage\Router\Handlers\Editor;
+use Chlp\OhMyPage\Router\Handlers\Save;
 use Exception;
 
 class Router
@@ -31,15 +32,9 @@ class Router
      */
     public function getHandler(): Handler
     {
-        switch ($this->path[0]) {
-            case 'edit':
-                $handler = new Handler();
-                $handler->setHtml('edit');
-                return $handler;
-            case 'telegram_webhook':
-                return new TelegramWebHook();
-            default:
-                return new PageReader($this->path[0]);
-        }
+        return match ($this->path[0]) {
+            'save' => new Save($this->path[1] ?? ''),
+            default => new Editor($this->path[0]),
+        };
     }
 }

@@ -6,7 +6,6 @@ namespace Chlp\OhMyPage\Application;
 use Chlp\OhMyPage\Repository\PageRepository;
 use Chlp\OhMyPage\Router\Router;
 use Exception;
-use MongoDB\Database;
 
 class App
 {
@@ -14,10 +13,10 @@ class App
     private PageRepository $pageRepository;
 
     public function __construct(
-        private Database $database,
+        private array $dbConfig,
     )
     {
-        $this->pageRepository = new PageRepository($this->database);
+        $this->pageRepository = new PageRepository($this->dbConfig);
         self::$instance = $this;
     }
 

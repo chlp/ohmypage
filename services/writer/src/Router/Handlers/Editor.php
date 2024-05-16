@@ -8,7 +8,7 @@ use Chlp\OhMyPage\Application\Helper;
 use Chlp\OhMyPage\Router\Handler;
 use Exception;
 
-class PageReader extends Handler
+class Editor extends Handler
 {
     /**
      * @throws Exception
