@@ -12,11 +12,8 @@ class App
     private static App $instance;
     private PageRepository $pageRepository;
 
-    public function __construct(
-        private array $dbConfig,
-    )
-    {
-        $this->pageRepository = new PageRepository($this->dbConfig);
+    public function __construct() {
+        $this->pageRepository = new PageRepository(Helper::getDbConfig());
         self::$instance = $this;
     }
 

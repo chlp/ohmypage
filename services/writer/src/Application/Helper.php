@@ -9,6 +9,16 @@ class Helper
 {
     private const ID_LENGTH = 32;
 
+    static public function getDbConfig(): array
+    {
+        return DB_CONFIG;
+    }
+
+    static public function getServicesConfig(): array
+    {
+        return SERVICES;
+    }
+
     static public function genUuid(): string
     {
         return sprintf('%04x%04x%04x%04x%04x%04x%04x%04x',

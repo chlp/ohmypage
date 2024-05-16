@@ -177,7 +177,8 @@ Title: <input type="text" name="title" value="' . $this->title . '">
 <input type="submit" value="save">
 </form>
 <br>
-<a href="http://localhost:8131/' . $this->getHtmlReaderPath() . '">http://localhost:8131/' . $this->getHtmlReaderPath() . '</a>
+<a href="' . Helper::getServicesConfig()['reader'] . $this->getHtmlReaderPath() . '">'
+            . Helper::getServicesConfig()['reader'] . $this->getHtmlReaderPath() . '</a>
 <br>
 <br>
 <a href="/">New page</a>
