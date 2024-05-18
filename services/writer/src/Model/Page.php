@@ -10,14 +10,11 @@ use Parsedown;
 
 class Page
 {
+    use PageReader, PageWriter, PageTheme;
+
     public const STATUS_PUBLIC = 1;
     public const STATUS_PRIVATE = 2;
     public const STATUS_DELETED = 3;
-
-    public const THEME_AIR = 'air';
-    public const THEME_MODEST = 'modest';
-    public const THEME_RETRO = 'retro';
-    public const THEME_SPLENDOR = 'splendor';
 
     /**
      * @param string $id
@@ -44,7 +41,7 @@ class Page
     {
         $mdParser = new Parsedown();
         $readerHtml = $this->getHtmlReaderHeader() . $mdParser->text($this->content) . $this->getHtmlReaderFooter();
-        $writerHtml = $this->getHtmlWriterHeader() . htmlspecialchars($this->content) . $this->getHtmlWriterFooter();
+        $writerHtml = $this->getWriterHtml();
         $this->saveToFile($readerHtml);
         return $writerHtml;
     }
@@ -110,11 +107,6 @@ class Page
         return "$datePath/" . $this->getLatinName();
     }
 
-    private function getHtmlReaderPath(): string
-    {
-        return $this->getPagePath() . '.html';
-    }
-
     private function getVarDirBasePath(): string
     {
         return Helper::getVarDirPath() . '/generated_pages/' . $this->getPagePath();
@@ -128,61 +120,5 @@ class Page
     private function getJsonFilePath(): string
     {
         return $this->getVarDirBasePath() . '.json';
-    }
-
-    private function getHtmlReaderHeader(): string
-    {
-        return '<!doctype html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>' . $this->title . '</title>
-    <link rel="icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/template/' . $this->theme . '.css">
-</head>
-<body>
-
-<h1>' . $this->title . '</h1>
-';
-    }
-
-    private function getHtmlReaderFooter(): string
-    {
-        return '
-</body>
-</html>';
-    }
-
-    private function getHtmlWriterHeader(): string
-    {
-        return '<!doctype html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>' . $this->title . '</title>
-    <link rel="icon" href="/favicon.ico">
-</head>
-<body>
-
-<form method="post" action="/save/' . $this->id . '">
-Title: <input type="text" name="title" value="' . $this->title . '">
-<br>
-<textarea name="content" style="min-width: 800px; min-height: 500px; width: 60vw; height: 70vh; margin: 1em;">';
-    }
-
-    private function getHtmlWriterFooter(): string
-    {
-        return '</textarea>
-<br>
-<input type="submit" value="save">
-</form>
-<br>
-<a href="' . Helper::getServicesConfig()['reader'] . $this->getHtmlReaderPath() . '">'
-            . Helper::getServicesConfig()['reader'] . $this->getHtmlReaderPath() . '</a>
-<br>
-<br>
-<a href="/">New page</a>
-</body>
-</html>';
     }
 }

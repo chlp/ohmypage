@@ -29,6 +29,7 @@ class Save extends Handler
         if ($page !== null) {
             $page->title = $_POST['title'] ?? $page->title;
             $page->content = $_POST['content'] ?? $page->content;
+            $page->theme = $_POST['theme'] ?? Page::THEME_AIR;
         } else {
             $page = new Page(
                 $this->pageId,
@@ -36,7 +37,7 @@ class Save extends Handler
                 $_POST['title'] ?? 'no-title',
                 $_POST['content'] ?? 'no-content',
                 Page::STATUS_PRIVATE,
-                Page::THEME_AIR,
+                $_POST['theme'] ?? Page::THEME_AIR,
                 [],
             );
         }
