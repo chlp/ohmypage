@@ -16,7 +16,7 @@ class PageRepository
     private Database $db;
 
     public function __construct(
-        private array $dbConfig,
+        private readonly array $dbConfig,
     )
     {
         $mongodbClient = new Client($this->dbConfig['URL']);

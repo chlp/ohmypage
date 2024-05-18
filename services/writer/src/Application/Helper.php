@@ -7,7 +7,7 @@ use Exception;
 
 class Helper
 {
-    private const ID_LENGTH = 32;
+    public const ID_LENGTH = 32;
 
     static public function getDbConfig(): array
     {
