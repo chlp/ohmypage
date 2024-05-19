@@ -6,7 +6,6 @@ namespace Chlp\OhMyPage\Model;
 use Chlp\OhMyPage\Application\Helper;
 use Exception;
 use DateTime;
-use Parsedown;
 
 class Page
 {
@@ -39,11 +38,8 @@ class Page
 
     public function makeHtml(): string
     {
-        $mdParser = new Parsedown();
-        $readerHtml = $this->getHtmlReaderHeader() . $mdParser->text($this->content) . $this->getHtmlReaderFooter();
-        $writerHtml = $this->getWriterHtml();
-        $this->saveToFile($readerHtml);
-        return $writerHtml;
+        $this->saveToFile($this->getReaderHtml()); // todo: move storing html file into saving
+        return $this->getWriterHtml();
     }
 
     private function saveToFile(string $html): void

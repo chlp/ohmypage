@@ -9,8 +9,6 @@ use Chlp\OhMyPage\Application\App;
 
 class Image
 {
-    public const OhMyPageImgMdTag = 'OhMyPageImg';
-
     public function __construct(
         public string $id,
         public string $title,
@@ -21,20 +19,6 @@ class Image
         public string $thumbnail,
     )
     {
-    }
-
-    public static function replaceOhMyImgMdWithHtml(string $md): string
-    {
-        $pattern = '/!\[' . self::OhMyPageImgMdTag . '\]\(([a-z0-9]{' . Helper::ID_LENGTH . '})\)/';
-        $callback = function ($matches) {
-            $id = $matches[1];
-            $image = App::getImageRepository()->getById($id);
-            if ($image === null) {
-                return $matches[0];
-            }
-            return $image->getHtmlImg();
-        };
-        return preg_replace_callback($pattern, $callback, $md);
     }
 
     public function getHtmlImg(): string

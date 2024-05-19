@@ -13,7 +13,7 @@ trait PageWriter
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>' . $this->title . '</title>
+    <title>📝 ' . $this->title . '</title>
     <link rel="icon" href="/favicon.ico">
 </head>
 <body>
