@@ -59,6 +59,29 @@ class Helper
         }
     }
 
+    public static function datetimeToOhMyPath(\DateTime $dt): string
+    {
+        try {
+            $year = Helper::intToOhMyChar((int)$dt->format('y')); // year
+        } catch (Exception $e) {
+            Helper::log('Page::getVarDirBasePath() year: ' . $e->getMessage());
+            $year = '_';
+        }
+        try {
+            $month = Helper::intToOhMyChar((int)$dt->format('n')); // month
+        } catch (Exception $e) {
+            Helper::log('Page::getVarDirBasePath() month: ' . $e->getMessage());
+            $month = '_';
+        }
+        try {
+            $day = Helper::intToOhMyChar((int)$dt->format('j')); // day
+        } catch (Exception $e) {
+            Helper::log('Page::getVarDirBasePath() day: ' . $e->getMessage());
+            $day = '_';
+        }
+        return "$year/$month/$day";
+    }
+
     /**
      * @throws Exception
      */

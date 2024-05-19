@@ -81,26 +81,7 @@ class Page
 
     private function getPagePath(): string
     {
-        try {
-            $year = Helper::intToOhMyChar((int)$this->created->format('y')); // year
-        } catch (Exception $e) {
-            Helper::log('Page::getVarDirBasePath() year: ' . $e->getMessage());
-            $year = '_';
-        }
-        try {
-            $month = Helper::intToOhMyChar((int)$this->created->format('n')); // month
-        } catch (Exception $e) {
-            Helper::log('Page::getVarDirBasePath() month: ' . $e->getMessage());
-            $month = '_';
-        }
-        try {
-            $day = Helper::intToOhMyChar((int)$this->created->format('j')); // day
-        } catch (Exception $e) {
-            Helper::log('Page::getVarDirBasePath() day: ' . $e->getMessage());
-            $day = '_';
-        }
-        $datePath = "$year/$month/$day";
-        return "$datePath/" . $this->getLatinName();
+        return Helper::datetimeToOhMyPath($this->created) . "/" . $this->getLatinName();
     }
 
     private function getVarDirBasePath(): string

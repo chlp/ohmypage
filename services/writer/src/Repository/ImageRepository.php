@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Chlp\OhMyPage\Repository;
 
 use Chlp\OhMyPage\Model\Image;
+use DateTime;
 use MongoDB\Database;
 
 class ImageRepository
@@ -36,10 +37,10 @@ class ImageRepository
         }
         return new Image(
             $row['id'],
+            DateTime::createFromFormat('Y-m-d H:i:s', $row['created'] ?? date('Y-m-d H:i:s')),
             $row['title'],
             $row['width'],
             $row['height'],
-            $row['path'],
             $row['format'],
             $row['thumbnail'],
         );
