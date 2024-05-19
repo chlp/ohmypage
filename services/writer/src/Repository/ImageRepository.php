@@ -4,23 +4,26 @@ declare(strict_types=1);
 namespace Chlp\OhMyPage\Repository;
 
 use Chlp\OhMyPage\Model\Image;
-use DateTime;
 use MongoDB\Database;
-use MongoDB\Client;
-
 
 class ImageRepository
 {
     private const IMAGE_COLLECTION = 'images';
+    private static self $instance;
 
-    private Database $db;
-
-    public function __construct(
-        private readonly array $dbConfig,
+    private function __construct(
+        private readonly Database $db,
     )
     {
-        $mongodbClient = new Client($this->dbConfig['URL']);
-        $this->db = $mongodbClient->selectDatabase($this->dbConfig['DB']);
+        self::$instance = $this;
+    }
+
+    public static function get(Database $db): self
+    {
+        if (!isset(self::$instance)) {
+            return new self($db);
+        }
+        return self::$instance;
     }
 
     public function getById(string $id): ?Image

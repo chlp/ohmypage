@@ -3,34 +3,47 @@ declare(strict_types=1);
 
 namespace Chlp\OhMyPage\Application;
 
+use Chlp\OhMyPage\Repository\ImageRepository;
 use Chlp\OhMyPage\Repository\PageRepository;
 use Chlp\OhMyPage\Router\Router;
 use Exception;
+use MongoDB\Database;
+use MongoDB\Client;
 
 class App
 {
-    private static App $instance;
+    private static self $instance;
+    private Database $db;
     private PageRepository $pageRepository;
+    private ImageRepository $imageRepository;
 
-    public function __construct() {
-        $this->pageRepository = new PageRepository(Helper::getDbConfig());
+    private function __construct()
+    {
+        $mongodbClient = new Client(DB_CONFIG['URL']);
+        $this->db = $mongodbClient->selectDatabase(DB_CONFIG['DB']);
+
+        $this->imageRepository = ImageRepository::get($this->db);
+        $this->pageRepository = PageRepository::get($this->db);
+
         self::$instance = $this;
     }
 
-    /**
-     * @throws Exception
-     */
-    public static function getInstance(): App
+    public static function get(): self
     {
-        if (self::$instance === null) {
-            throw new Exception('no instance');
+        if (!isset(self::$instance)) {
+            return new self();
         }
         return self::$instance;
     }
 
-    public function getPageRepository(): PageRepository
+    public static function getPageRepository(): PageRepository
     {
-        return $this->pageRepository;
+        return self::get()->pageRepository;
+    }
+
+    public static function getImageRepository(): ImageRepository
+    {
+        return self::get()->imageRepository;
     }
 
     public function run(): void

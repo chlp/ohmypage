@@ -24,7 +24,7 @@ class Save extends Handler
 
     public function run(): void
     {
-        $pageRepository = App::getInstance()->getPageRepository();
+        $pageRepository = App::get()->getPageRepository();
         $page = $pageRepository->getById($this->pageId);
         if ($page !== null) {
             $page->title = $_POST['title'] ?? $page->title;

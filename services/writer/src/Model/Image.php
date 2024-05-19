@@ -5,6 +5,7 @@ namespace Chlp\OhMyPage\Model;
 
 use Chlp\OhMyPage\Application\Helper;
 use Chlp\OhMyPage\Repository\ImageRepository;
+use Chlp\OhMyPage\Application\App;
 
 class Image
 {
@@ -27,7 +28,7 @@ class Image
         $pattern = '/!\[' . self::OhMyPageImgMdTag . '\]\(([a-z0-9]{' . Helper::ID_LENGTH . '})\)/';
         $callback = function ($matches) {
             $id = $matches[1];
-            $image = (new ImageRepository())->getById($id);
+            $image = App::getImageRepository()->getById($id);
             if ($image === null) {
                 return $matches[0];
             }

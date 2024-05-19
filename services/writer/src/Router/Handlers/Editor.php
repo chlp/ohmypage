@@ -25,7 +25,7 @@ class Editor extends Handler
     public function run(): void
     {
         if ($this->pageId !== '') {
-            $pageRepository = App::getInstance()->getPageRepository();
+            $pageRepository = App::get()->getPageRepository();
             $page = $pageRepository->getById($this->pageId);
             if ($page === null) {
                 throw new Exception('page not found');

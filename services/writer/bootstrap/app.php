@@ -7,7 +7,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use Chlp\OhMyPage\Application\App;
 
 try {
-    return new App();
+    return App::get();
 } catch (Exception $ex) {
     echo '💾';
     error_log((string)$ex);
