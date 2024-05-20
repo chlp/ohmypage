@@ -22,7 +22,7 @@ class Image
 
     public function getHtmlImg(): string
     {
-        $html = '<img alt="' . $this->title . '" width="' . $this->width . '" height="' . $this->width . '" ';
+        $html = '<img alt="' . $this->title . '" width="' . $this->width . '" height="' . $this->height . '" ';
         $html .= 'src="' . $this->thumbnail . '" full_src="' . $this->getPath() . '" />';
         return $html;
     }
