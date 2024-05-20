@@ -22,8 +22,8 @@ class Image
 
     public function getHtmlImg(): string
     {
-        $html = '<img alt="' . $this->title . '" width="' . $this->width . '" height="' . $this->height . '" ';
-        $html .= 'src="' . $this->thumbnail . '" data-src="' . $this->getPath() . '" />';
+        $html = '<img class="ohmyimg" width="' . $this->width . '" height="' . $this->height . '" ';
+        $html .= ' alt="' . $this->title . '" data-src="' . $this->getPath() . '" src="' . $this->thumbnail . '"/>';
         return $html;
     }
 
