@@ -30,7 +30,7 @@ class Image
 
     private function getPath(): string
     {
-        return SERVICES['images'] . 'upload/' .
+        return SERVICES['images'] .
             Helper::datetimeToOhMyPath($this->created) . '/' . $this->id . '.' . $this->format . '?' . $this->hash;
     }
 }

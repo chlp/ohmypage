@@ -4,7 +4,7 @@ function loadImage(img) {
     }
     let fullSrc = img.dataset.src;
     let xhr = new XMLHttpRequest();
-    xhr.onload = (ev) => {
+    xhr.onload = () => {
         img.src = fullSrc;
         img.style.filter = 'blur(0px)'
     };
