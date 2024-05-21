@@ -16,6 +16,7 @@ class Image
         public int $height,
         public string $format,
         public string $thumbnail,
+        public string $hash,
     )
     {
     }
@@ -30,6 +31,6 @@ class Image
     private function getPath(): string
     {
         return SERVICES['images'] . 'upload/' .
-            Helper::datetimeToOhMyPath($this->created) . '/' . $this->id . '.' . $this->format;
+            Helper::datetimeToOhMyPath($this->created) . '/' . $this->id . '.' . $this->format . '?' . $this->hash;
     }
 }

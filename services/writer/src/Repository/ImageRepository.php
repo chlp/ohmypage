@@ -43,6 +43,7 @@ class ImageRepository
             $row['height'],
             $row['format'],
             $row['thumbnail'],
+            $row['hash'] ?? 'empty',
         );
     }
 }

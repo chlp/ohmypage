@@ -26,6 +26,7 @@ trait PageReader
     <title>' . $this->title . '</title>
     <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="/template/' . $this->theme . '.css">
+    <link rel="stylesheet" href="/template/ohmyimg.css">
 </head>
 <body>
 
@@ -33,49 +34,8 @@ trait PageReader
 ';
         $html .= $mdParser->text($this->replaceOhMyImgMdWithHtml($this->content));
         $html .= '
+<script src="/template/ohmyimg.js"></script>
 </body>
-<script>
-    function loadImage(img) {
-        if (!img instanceof HTMLImageElement) {
-            return;
-        }
-        let fullSrc = img.dataset.src;
-        console.log(fullSrc);
-        let xhr = new XMLHttpRequest();
-        xhr.onloadstart = (ev) => {
-            console.log("onloadstart", ev);
-        };
-        xhr.onload = (ev) => {
-            // todo: проставить blur на 0
-            console.log("onload", ev);
-            console.log(xhr.status); // todo: это ошибка?
-            console.log(xhr);
-            img.src = fullSrc;
-        };
-        xhr.onabort = (ev) => {
-            // todo: или это ошибка? нужно проставить css свойство для неудачной загрузки и снять blur, чтобы показать thumb
-            console.log("onabort", ev);
-        };
-        xhr.onerror = (ev) => {
-            console.log("onerror", ev);
-        };
-        xhr.onprogress = (ev) => {
-            // todo: проставить blur на процент загрузки
-            console.log("onprogress", ev);
-            if (ev.lengthComputable) {
-                let percentLoaded = Math.round((ev.loaded / ev.total) * 100);
-                console.log("Прогресс загрузки: " + percentLoaded + "%");
-            }
-        };
-        xhr.open("GET", fullSrc);
-        xhr.responseType = "blob";
-        xhr.send();
-    }
-
-    for (let img of document.getElementsByClassName("ohmyimg")) {
-        loadImage(img);
-    }
-</script>
 </html>';
         return $html;
     }
