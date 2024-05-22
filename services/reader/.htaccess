@@ -3,3 +3,8 @@ ErrorDocument 402 /fallback.html
 ErrorDocument 403 /fallback.html
 ErrorDocument 404 /fallback.html
 ErrorDocument 500 /fallback.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^/(.*?)-([a-zA-Z0-9])([a-zA-Z0-9])([a-zA-Z0-9])$ /pages/$2/$3/$4/$1.html [L,NC,T=text/html]
+</IfModule>

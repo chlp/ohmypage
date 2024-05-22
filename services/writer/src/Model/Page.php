@@ -81,7 +81,7 @@ class Page
 
     private function getPagePath(): string
     {
-        return Helper::datetimeToOhMyPath($this->created) . "/" . $this->getLatinName();
+        return Helper::datetimeToOhMyStr($this->created) . "/" . $this->getLatinName();
     }
 
     private function getVarDirBasePath(): string

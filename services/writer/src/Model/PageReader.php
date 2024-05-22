@@ -13,7 +13,7 @@ trait PageReader
 
     private function getHtmlReaderPath(): string
     {
-        return $this->getPagePath() . '.html';
+        return $this->getLatinName() . '-' . Helper::datetimeToOhMyStr($this->created);;
     }
 
     private function getReaderHtml(): string
