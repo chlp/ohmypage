@@ -76,17 +76,13 @@ class Page
     private function getLatinName(): string
     {
         // todo: remove all non numbers and chars
-        return (string)preg_replace('/\s+/', '_', $this->title);
-    }
-
-    private function getPagePath(): string
-    {
-        return Helper::datetimeToOhMyStr($this->created) . "/" . $this->getLatinName();
+        return (string)preg_replace('/\s+/', '-', $this->title);
     }
 
     private function getVarDirBasePath(): string
     {
-        return Helper::getVarDirPath() . '/generated_pages/' . $this->getPagePath();
+        return Helper::getVarDirPath() . '/generated_pages/' .
+            Helper::datetimeToOhMyPath($this->created) . "/" . $this->getLatinName();
     }
 
     private function getHtmlFilePath(): string

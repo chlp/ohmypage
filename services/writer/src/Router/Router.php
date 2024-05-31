@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Chlp\OhMyPage\Router;
 
-use Chlp\OhMyPage\Application\Helper;
 use Chlp\OhMyPage\Router\Handlers\Editor;
 use Chlp\OhMyPage\Router\Handlers\Save;
+use Chlp\OhMyPage\Router\Handlers\UploadImg;
 use Exception;
 
 class Router
@@ -34,6 +34,7 @@ class Router
     {
         return match ($this->path[0]) {
             'save' => new Save($this->path[1] ?? ''),
+            'upload_img' => new UploadImg($this->path[1] ?? ''),
             default => new Editor($this->path[0]),
         };
     }

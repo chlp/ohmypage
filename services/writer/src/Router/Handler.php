@@ -7,6 +7,9 @@ use Exception;
 
 class Handler
 {
+    public const METHOD_GET = 'GET';
+    public const METHOD_POST = 'POST';
+
     private ?string $html = null;
 
     /**
@@ -36,6 +39,11 @@ class Handler
     protected function getInput(): string
     {
         return file_get_contents('php://input') ?: '';
+    }
+
+    protected function getMethod(): string
+    {
+        return $_SERVER['REQUEST_METHOD'];
     }
 
     protected function getJson(): array

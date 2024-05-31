@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Chlp\OhMyPage\Application;
 
+use DateTime;
 use Exception;
 
 class Helper
@@ -59,7 +60,7 @@ class Helper
         }
     }
 
-    public static function datetimeToOhMyPath(\DateTime $dt): string
+    private static function datetimeToOhMyArr(DateTime $dt): array
     {
         try {
             $year = Helper::intToOhMyChar((int)$dt->format('y')); // year
@@ -79,30 +80,17 @@ class Helper
             Helper::log('Page::getVarDirBasePath() day: ' . $e->getMessage());
             $day = '_';
         }
-        return "$year/$month/$day";
+        return [$year, $month, $day];
     }
 
-    public static function datetimeToOhMyStr(\DateTime $dt): string
+    public static function datetimeToOhMyPath(DateTime $dt): string
     {
-        try {
-            $year = Helper::intToOhMyChar((int)$dt->format('y')); // year
-        } catch (Exception $e) {
-            Helper::log('Page::getVarDirBasePath() year: ' . $e->getMessage());
-            $year = '_';
-        }
-        try {
-            $month = Helper::intToOhMyChar((int)$dt->format('n')); // month
-        } catch (Exception $e) {
-            Helper::log('Page::getVarDirBasePath() month: ' . $e->getMessage());
-            $month = '_';
-        }
-        try {
-            $day = Helper::intToOhMyChar((int)$dt->format('j')); // day
-        } catch (Exception $e) {
-            Helper::log('Page::getVarDirBasePath() day: ' . $e->getMessage());
-            $day = '_';
-        }
-        return "$year$month$day";
+        return implode('/', self::datetimeToOhMyArr($dt));
+    }
+
+    public static function datetimeToOhMyStr(DateTime $dt): string
+    {
+        return implode('', self::datetimeToOhMyArr($dt));
     }
 
     /**

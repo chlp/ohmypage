@@ -17,6 +17,9 @@ class Save extends Handler
      */
     public function __construct(private $pageId)
     {
+        if ($this->getMethod() !== self::METHOD_POST) {
+            throw new Exception('wrong method');
+        }
         if (!Helper::isUuid($this->pageId)) {
             throw new Exception('wrong id');
         }
@@ -24,7 +27,7 @@ class Save extends Handler
 
     public function run(): void
     {
-        $pageRepository = App::get()->getPageRepository();
+        $pageRepository = App::getPageRepository();
         $page = $pageRepository->getById($this->pageId);
         if ($page !== null) {
             $page->title = $_POST['title'] ?? $page->title;

@@ -6,7 +6,7 @@ function loadImage(img) {
     let xhr = new XMLHttpRequest();
     xhr.onload = () => {
         img.src = fullSrc;
-        img.style.filter = 'blur(0px)'
+        img.style.filter = 'blur(0px)';
     };
     xhr.onabort = (ev) => {
         console.log("ohmyimg onabort", img.alt, fullSrc, ev);
@@ -24,6 +24,7 @@ function loadImage(img) {
     xhr.responseType = "blob";
     xhr.send();
 }
+
 for (let img of document.getElementsByClassName("ohmyimg")) {
     loadImage(img);
 }
