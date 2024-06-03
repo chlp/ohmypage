@@ -25,8 +25,8 @@ class Page
      * @param string[] $images
      */
     public function __construct(
-        public string $id,
-        public DateTime $created,
+        public readonly string $id,
+        public readonly DateTime $created,
         public string $title,
         public string $content,
         public int $status,
@@ -79,19 +79,18 @@ class Page
         return (string)preg_replace('/\s+/', '-', $this->title);
     }
 
-    private function getVarDirBasePath(): string
+    public static function getFsVarDir(): string
     {
-        return Helper::getVarDirPath() . '/generated_pages/' .
-            Helper::datetimeToOhMyPath($this->created) . "/" . $this->getLatinName();
+        return Helper::getFsVarDir() . '/generated_pages/';
     }
 
     private function getHtmlFilePath(): string
     {
-        return $this->getVarDirBasePath() . '.html';
+        return self::getFsVarDir() . Helper::datetimeToOhMyPath($this->created) . "/" . $this->getLatinName() . '.html';
     }
 
     private function getJsonFilePath(): string
     {
-        return $this->getVarDirBasePath() . '.json';
+        return self::getFsVarDir() . Helper::datetimeToOhMyPath($this->created) . "/" . $this->getLatinName() . '.json';
     }
 }

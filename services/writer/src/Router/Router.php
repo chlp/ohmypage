@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Chlp\OhMyPage\Router;
 
 use Chlp\OhMyPage\Router\Handlers\Editor;
-use Chlp\OhMyPage\Router\Handlers\Save;
+use Chlp\OhMyPage\Router\Handlers\SavePage;
 use Chlp\OhMyPage\Router\Handlers\UploadImg;
 use Exception;
 
@@ -33,7 +33,7 @@ class Router
     public function getHandler(): Handler
     {
         return match ($this->path[0]) {
-            'save' => new Save($this->path[1] ?? ''),
+            'save' => new SavePage($this->path[1] ?? ''),
             'upload_img' => new UploadImg($this->path[1] ?? ''),
             default => new Editor($this->path[0]),
         };

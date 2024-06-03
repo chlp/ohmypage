@@ -8,29 +8,43 @@ use DateTime;
 
 class Image
 {
+    public const FORMAT_JPG = 'jpeg';
+    public const FORMAT_PNG = 'png';
+    public const FORMAT_GIF = 'gif';
+
     public function __construct(
-        public string $id,
-        public DateTime $created,
-        public string $title,
-        public int $width,
-        public int $height,
-        public string $format,
-        public string $thumbnail,
-        public string $hash,
+        public readonly string $id,
+        public readonly DateTime $created,
+        public readonly int $width,
+        public readonly int $height,
+        public readonly string $format,
+        public readonly string $thumbnail,
+        public readonly string $hash,
     )
     {
     }
 
-    public function getHtmlImg(): string
+    public function getHtmlImg(string $title = ''): string
     {
-        $html = '<img class="ohmyimg" width="' . $this->width . '" height="' . $this->height . '" ';
-        $html .= ' alt="' . $this->title . '" data-src="' . $this->getPath() . '" src="' . $this->thumbnail . '"/>';
-        return $html;
+        return '<img class="ohmyimg" width="' . $this->width . '" height="' . $this->height . '" '
+            . ' alt="' . $title . '" data-src="' . $this->getHttpPath()
+            . '" src="' . $this->getThumbnailImgSrc() . '"/>';
     }
 
-    private function getPath(): string
+    private function getThumbnailImgSrc(): string
+    {
+        return 'data: ' . $this->format . ';base64,' . $this->thumbnail;
+    }
+
+    private function getHttpPath(): string
     {
         return SERVICES['images'] .
             Helper::datetimeToOhMyPath($this->created) . '/' . $this->id . '.' . $this->format . '?' . $this->hash;
+    }
+
+    public function getFilePath(): string
+    {
+        return Helper::getFsVarDir() . '/upload_images/' . Helper::datetimeToOhMyPath($this->created) . "/" .
+            $this->id . '.' . $this->format;
     }
 }

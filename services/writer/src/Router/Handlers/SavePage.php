@@ -10,7 +10,7 @@ use Chlp\OhMyPage\Router\Handler;
 use DateTime;
 use Exception;
 
-class Save extends Handler
+class SavePage extends Handler
 {
     /**
      * @throws Exception

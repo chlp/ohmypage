@@ -38,12 +38,30 @@ class ImageRepository
         return new Image(
             $row['id'],
             DateTime::createFromFormat('Y-m-d H:i:s', $row['created'] ?? date('Y-m-d H:i:s')),
-            $row['title'],
             $row['width'],
             $row['height'],
             $row['format'],
             $row['thumbnail'],
             $row['hash'] ?? 'empty',
+        );
+    }
+
+    public function save(Image $image): void
+    {
+        // todo: use result
+        $this->db->selectCollection(self::IMAGE_COLLECTION)->updateOne(
+            ['id' => $image->id],
+            [
+                '$set' => [
+                    'created' => $image->created->format('Y-m-d H:i:s'),
+                    'width' => $image->width,
+                    'height' => $image->height,
+                    'format' => $image->format,
+                    'thumbnail' => $image->thumbnail,
+                    'hash' => $image->hash,
+                ]
+            ],
+            ['upsert' => true]
         );
     }
 }

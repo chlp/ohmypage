@@ -48,6 +48,7 @@ class PageRepository
 
     public function save(Page $page): void
     {
+        // todo: use result
         $this->db->selectCollection(self::PAGE_COLLECTION)->updateOne(
             ['id' => $page->id],
             [

@@ -36,13 +36,13 @@ class Helper
         return preg_match('/^[a-z0-9]{' . self::ID_LENGTH . '}$/', $id) === 1;
     }
 
-    public static function getVarDirPath(): string
+    public static function getFsVarDir(): string
     {
         return __DIR__ . '/../../var';
     }
 
-    const A_CHAR_CODE = 97;
-    const MAX_OHMYCHAR_INT = 35;
+    private const A_CHAR_CODE = 97;
+    private const MAX_OHMYCHAR_INT = 35;
 
     /**
      * @throws Exception
@@ -125,7 +125,7 @@ class Helper
             $inputType = 'json';
             $input = json_encode($jsonInput, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         }
-        file_put_contents(self::getVarDirPath() . '/logs/' . date('Y-m-d') . '.txt',
+        file_put_contents(self::getFsVarDir() . '/logs/' . date('Y-m-d') . '.txt',
             date('Y-m-d H:i:s') . " {$_SERVER['REQUEST_METHOD']} {$_SERVER['REQUEST_URI']}\r\n" .
             ($input ? "{$inputType}: {$input}\r\n" : '') .
             $message . "\r\n\r\n", FILE_APPEND);

@@ -39,6 +39,11 @@ Theme: <select name="theme">';
 <input type="submit" value="save">
 </form>
 <br>
+<form method="post" action="/upload_img/' . $this->id . '" enctype="multipart/form-data">
+<input type="file" name="image">
+<input type="submit" value="upload">
+</form>
+<br>
 <a href="' . Helper::getServicesConfig()['reader'] . $this->getHtmlReaderPath() . '">'
             . Helper::getServicesConfig()['reader'] . $this->getHtmlReaderPath() . '</a>
 <br>
