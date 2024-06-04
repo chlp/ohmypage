@@ -40,7 +40,7 @@ Theme: <select name="theme">';
 </form>
 <br>
 <form method="post" action="/upload_img/' . $this->id . '" enctype="multipart/form-data">
-<input type="file" name="image">
+<input type="file" name="image" accept="image/*">
 <input type="submit" value="upload">
 </form>
 <br>
